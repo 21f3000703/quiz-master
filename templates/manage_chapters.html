@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Chapters</title>
+</head>
+<body>
+    <h1>Manage Chapters for Subject: {{ subject.name }}</h1>
+    
+    <a href="{{ url_for('add_chapter', subject_id=subject.id) }}">Add New Chapter</a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chapter in chapters %}
+            <tr>
+                <td>{{ chapter.id }}</td>
+                <td>{{ chapter.name }}</td>
+                <td>{{ chapter.description }}</td>
+                <td>
+                    <a href="{{ url_for('edit_chapter', chapter_id=chapter.id) }}">Edit</a>
+                    <a href="{{ url_for('delete_chapter', chapter_id=chapter.id) }}" onclick="return confirm('Are you sure you want to delete this chapter?');">Delete</a>
+                    <a href="{{ url_for('manage_quizzes', chapter_id=chapter.id) }}">Manage Quizzes</a>
+                  </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('manage_subjects') }}">Back to Subjects</a>
+</body>
+</html>

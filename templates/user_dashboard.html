@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <h1>Welcome, {{ user.full_name }}</h1>
+
+    <h2>Available Quizzes</h2>
+    <ul>
+        {% for quiz in quizzes %}
+            <li>
+                <strong>{{ quiz.title }}</strong> ({{ quiz.date }})<br>
+                {{ quiz.description }}<br>
+                Duration: {{ quiz.duration }}
+                <a href="{{ url_for('attempt_quiz', quiz_id=quiz.id) }}">Attempt Quiz</a>
+            </li>
+        {% else %}
+            <li>No quizzes available at the moment.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Past Quiz Scores</h2>
+    <ul>
+        {% for score in past_scores %}
+            <li>
+                Quiz: {{ score.quiz_id }} | Score: {{ score.total_scored }} | Date: {{ score.time_stamp_of_attempt }}
+            </li>
+        {% else %}
+            <li>No quiz attempts found.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Performance Summary</h2>
+    <canvas id="scoreChart" width="400" height="200"></canvas>
+
+    <script>
+        // Data for chart
+        const quizTitles = {{ quiz_titles | tojson }};
+        const scores = {{ scores | tojson }};
+
+        // Render the chart
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+        const scoreChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: quizTitles,
+                datasets: [{
+                    label: 'Quiz Scores',
+                    data: scores,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

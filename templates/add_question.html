@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Question</title>
+</head>
+<body>
+    <h1>Add Question to Quiz: {{ quiz.title }}</h1>
+    <a href="{{ url_for('manage_questions', quiz_id=quiz.id) }}" class="btn btn-secondary">Back to Questions</a>
+
+    <form method="POST">
+        <label>Question Text:</label>
+        <input type="text" name="text" required>
+        
+        <label>Option A:</label>
+        <input type="text" name="option_a" required>
+        
+        <label>Option B:</label>
+        <input type="text" name="option_b" required>
+        
+        <label>Option C:</label>
+        <input type="text" name="option_c" required>
+        
+        <label>Option D:</label>
+        <input type="text" name="option_d" required>
+        
+        <label>Correct Option:</label>
+        <input type="text" name="correct_option" required>
+        
+        <button type="submit">Add Question</button>
+    </form>
+</body>
+</html>

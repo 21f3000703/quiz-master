@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2>Create a New Quiz</h2>
+        <a href="{{ url_for('manage_quizzes') }}" class="btn btn-secondary mb-3">Back to Manage Quizzes</a>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Quiz Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="chapter" class="form-label">Select Chapter</label>
+                <select class="form-select" id="chapter" name="chapter" required>
+                    {% for chapter in chapters %}
+                        <option value="{{ chapter.id }}">{{ chapter.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="date_of_quiz" class="form-label">Date of Quiz</label>
+                <input type="date" class="form-control" id="date_of_quiz" name="date_of_quiz" required>
+            </div>
+            <div class="mb-3">
+                <label for="time_duration" class="form-label">Time Duration (HH:MM)</label>
+                <input type="text" class="form-control" id="time_duration" name="time_duration" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Quiz</button>
+        </form>
+    </div>
+</body>
+</html>

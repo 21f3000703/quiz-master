@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <form method="GET" action="{{ url_for('admin_dashboard') }}">
+        <input type="text" name="search" placeholder="Search users, subjects, quizzes" value="{{ search_query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Users</h2>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username }} - {{ user.full_name }}</li>
+        {% else %}
+            <li>No users found.</li>
+        {% endfor %}
+        <a href="{{ url_for('manage_users') }}" class="list-group-item list-group-item-action">Manage Users</a>
+    </ul>
+
+    <h2>Subjects</h2>
+    <ul>
+        {% for subject in subjects %}
+            <li>{{ subject.name }}</li>
+        {% else %}
+            <li>No subjects found.</li>
+        {% endfor %}
+        <a href="{{ url_for('manage_subjects') }}" class="list-group-item list-group-item-action">Manage Subjects</a>
+    </ul>
+
+
+    <!-- Link to the Summary Dashboard -->
+    <a href="{{ url_for('summary_dashboard') }}" class="list-group-item list-group-item-action">See Summary</a>
+</body>
+</html>

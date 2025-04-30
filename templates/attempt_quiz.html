@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Attempt Quiz</title>
+</head>
+<body>
+    <h1>{{ quiz.title }}</h1>
+    <form method="POST">
+        <ul>
+            {% for question in questions %}
+                <li>
+                    <strong>{{ question.text }}</strong><br>
+                    <input type="radio" name="{{ question.id }}" value="{{ question.option_a }}"> {{ question.option_a }}<br>
+                    <input type="radio" name="{{ question.id }}" value="{{ question.option_b }}"> {{ question.option_b }}<br>
+                    <input type="radio" name="{{ question.id }}" value="{{ question.option_c }}"> {{ question.option_c }}<br>
+                    <input type="radio" name="{{ question.id }}" value="{{ question.option_d }}"> {{ question.option_d }}
+                </li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Submit Quiz</button>
+    </form>
+</body>
+</html>
